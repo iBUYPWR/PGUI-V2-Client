@@ -40,6 +40,7 @@ public:
         Prompt_Waiting_Type waitingResponse;
         QQueue<QByteArray> motherPacket;
         QByteArray pendingCommand;
+        bool	m_flagClosePort;
     };
     basicStruct basic;
 public slots:
@@ -69,7 +70,6 @@ private:
     int		settingbaudrate;
     QString		settingparity;
     bool		done;
-    bool		m_flagClosePort;
     bool		m_flagSkipNextReq;
     bool		m_flagDataReady;
     quint8      timerRefreshMonitoringCounter;

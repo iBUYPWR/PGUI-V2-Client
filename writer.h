@@ -18,6 +18,7 @@ public:
         Prompt_Waiting_Type waitingResponse;
         QQueue<QByteArray> motherPacket;
         QByteArray pendingCommand;
+        bool	m_flagClosePort;
     };
     Writer(QObject *parent = nullptr);
     void run() Q_DECL_OVERRIDE;

@@ -181,7 +181,7 @@ void portal::openPort(QString setting,int baudrate,QString parity){
             emit connectionStatusSig(true);
             emit packetStatusSig(false,"Connection is void.");
             qDebug() << "open.";
-            m_flagClosePort = false;
+            basic.m_flagClosePort = false;
             emit devoidSig();
             done = false;
             connect(m_serialPort, SIGNAL(readyRead()), this, SLOT(handleReadyRead()));
@@ -199,7 +199,7 @@ void portal::openPort(QString setting,int baudrate,QString parity){
         else
         {
             done = true;
-            m_flagClosePort = true;
+            basic.m_flagClosePort = true;
             emit connectionStatusSig(false);
         }
     }
@@ -215,7 +215,7 @@ void portal::closePort()
         m_serialPort->close();
 	}
     done = true;
-    m_flagClosePort = false;
+    basic.m_flagClosePort = false;
     emit connectionStatusSig(false);
 }
 void portal::qwe(){

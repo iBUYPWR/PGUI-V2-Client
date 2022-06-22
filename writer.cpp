@@ -11,6 +11,7 @@ void Writer::run()
 void Writer::commandBrute(basicStruct *basic){
     //moveToThread(this->thread());
         //qDebug() << "passed" << data.toHex() << flagL;
+    if(basic->m_flagClosePort==false){
         if(basic->flagL==awaitingResponse){
             emit (unleashPacketsSig(basic->pendingCommand));
             qDebug() << "stuck"  << basic->motherPacket;
@@ -56,6 +57,7 @@ void Writer::commandBrute(basicStruct *basic){
                 qDebug() << "passed" << basic->flagL << basic->state << basic->motherPacket;
                     emit(initReqSig());
             }
+        }
     }
 }
 
