@@ -22,6 +22,18 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->setHzModal,SIGNAL(clicked()),this,SLOT(showHzModal()));
     connect(ui->resetBut,SIGNAL(clicked()),this,SLOT(resetPrompt()));
     //Construct();
+    QSizePolicy baudDisRetain = ui->baudDisWidget->sizePolicy();
+    QSizePolicy hzindicatorRetain = ui->hzindicatorWidget->sizePolicy();
+    QSizePolicy parameterRetain = ui->parameterWidget->sizePolicy();
+    baudDisRetain.setRetainSizeWhenHidden(true);
+    hzindicatorRetain.setRetainSizeWhenHidden(true);
+    parameterRetain.setRetainSizeWhenHidden(true);
+    ui->baudDisWidget->setSizePolicy(baudDisRetain);
+    ui->hzindicatorWidget->setSizePolicy(hzindicatorRetain);
+    ui->parameterWidget->setSizePolicy(parameterRetain);
+    ui->baudDisWidget->setVisible(false);
+    ui->hzindicatorWidget->setVisible(false);
+    ui->parameterWidget->setVisible(false);
 }
 MainWindow::~MainWindow()
 {
@@ -89,17 +101,26 @@ void MainWindow::connectionStatus(bool connection){
        ui->indicator->setStyleSheet("QLabel { color : green; }");
        ////ui->tabwidget_2->setVisible(true);
        setConnLED(true);
+       ui->baudDisWidget->setVisible(true);
     }else{
         ui->indicator->setText("Connection failure.");
         ui->indicator->setStyleSheet("QLabel { color : red; }");
         ////ui->tabwidget_2->setVisible(false);
         setConnLED(false);
+        ui->baudDisWidget->setVisible(false);
     }
 }
 void MainWindow::packetStatus(bool connection,QString val){
     connection ? ui->procIndicator->setStyleSheet("QLabel { color : green; }")  : ui->procIndicator->setStyleSheet("QLabel { color : red; }");
     connection ? setSyncLED(true)  : setSyncLED(false);
     ui->procIndicator->setText(val);
+    if(connection){
+        ui->parameterWidget->setVisible(true);
+        ui->hzindicatorWidget->setVisible(true);
+    }else{
+        ui->parameterWidget->setVisible(false);
+        ui->hzindicatorWidget->setVisible(false);
+    }
 }
 void MainWindow::initPortal(QString setting,int baudrate,QString parity){
     m_portal=new portal(this);
@@ -112,6 +133,7 @@ void MainWindow::initPortal(QString setting,int baudrate,QString parity){
     //m_portal->commandBrute();
     //connect(this, SIGNAL(commandBruteSig()), m_portal, SLOT(commandBrute()));
     //emit(commandBruteSig());
+    ui->baudDis->setText(QString::number(baudrate));
     m_flagInitiated=true;
 }
 void MainWindow::quitPortal(){

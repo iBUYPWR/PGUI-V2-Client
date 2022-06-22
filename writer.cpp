@@ -62,5 +62,5 @@ void Writer::commandBrute(basicStruct *basic){
 }
 
 void Writer::x(){
-    qDebug() << "sdf";
+    //qDebug() << "sdf";
 }

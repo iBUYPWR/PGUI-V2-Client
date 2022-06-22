@@ -215,7 +215,7 @@ void portal::closePort()
         m_serialPort->close();
 	}
     done = true;
-    basic.m_flagClosePort = false;
+    basic.m_flagClosePort = true;
     emit connectionStatusSig(false);
 }
 void portal::qwe(){
